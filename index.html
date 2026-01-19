@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Chart Viewer</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #bb86fc;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+            --error-color: #cf6679;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #root {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .app-container {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 12px 15px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .sidebar li button:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .sidebar li button.selected {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: bold;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .viewer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex-grow: 1;
+            min-height: 0;
+        }
+        .panel {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: auto;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .panel h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+        .code-panel pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .code-panel code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .preview-panel-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .preview-panel svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .error-message {
+            background-color: var(--error-color);
+            color: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+        .loading-message, .empty-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 1.2em;
+            color: #888;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .app-container {
+                flex-direction: column;
+                 height: auto;
+                 overflow-y: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                height: auto;
+            }
+            .viewer-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                height: auto;
+            }
+             .panel {
+                min-height: 300px;
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
